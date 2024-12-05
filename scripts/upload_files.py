@@ -26,5 +26,5 @@ def upload_files_to_s3(bucket_name):
                     # Podrías agregar más lógica de manejo de errores si es necesario
 
 if __name__ == "__main__":
-    bucket_name = "nuevo-hotel-data-bucket"  # Asegúrate de que este nombre sea correcto
+    bucket_name = "insert-data"  # Asegúrate de que este nombre sea correcto
     upload_files_to_s3(bucket_name)

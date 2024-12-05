@@ -12,7 +12,7 @@ def generate_services(tenant_ids, count_per_tenant):
             services.append({
                 "tenant_id": tenant_id,
                 "service_id": service_id,
-                "service_category": faker.random_element(["Spa", "Gym", "Pool"]),
+                "service_category": faker.random_element(["spa", "restaurante", "piscina", "gym", "bar", "transporte", "eventos", "lavandería", "tours", "kids club", "parking", "wi-fi", "cine", "negocios", "golf", "deportes acuáticos", "mascotas"]),
                 "service_name": faker.word(),
                 "descripcion": faker.text(max_nb_chars=200),
                 "precio": faker.random_int(min=10, max=200),

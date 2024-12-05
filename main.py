@@ -8,24 +8,24 @@ from scripts.upload_files import upload_files_to_s3
 from utils.dynamodb_utils import batch_write_to_dynamodb, tablas_archivos, descargar_archivo_s3
 
 if __name__ == "__main__":
-    tenant_ids = ["Hotel1", "Hotel2", "Hotel3"]
+    tenant_ids = ["Hotel1", "Hotel2", "Hotel3", "Hotel4"]
 
     # Step 1: Generate data
     users = generate_users(tenant_ids, 3334)
-    rooms = generate_rooms(tenant_ids, 3334)
-    services = generate_services(tenant_ids, 3334)
+    rooms = generate_rooms(tenant_ids, 20)
+    services = generate_services(tenant_ids, 8)
     reservations = generate_reservations(tenant_ids, users, rooms, services, 3334)
     generate_payments(tenant_ids, reservations, 3334)
-    generate_comments(tenant_ids, users, rooms, 3334)
+    generate_comments(tenant_ids, users, rooms, 20)
 
     # Step 2: Upload to S3
-    upload_files_to_s3("nuevo-hotel-data-bucket")
+    upload_files_to_s3("insert-data")
 
     # Step 3: Insert data into DynamoDB
     for table_name, files in tablas_archivos.items():
         for file_name in files:
             print(f"Descargando {file_name} desde S3...")
-            items = descargar_archivo_s3("nuevo-hotel-data-bucket", file_name)
+            items = descargar_archivo_s3("insert-data", file_name)
             print(f"Insertando en la tabla {table_name}...")
             batch_write_to_dynamodb(table_name, items)
             print(f"Datos insertados en {table_name} desde {file_name}.")
